@@ -11,7 +11,7 @@ datasource db {
 }
 
 model User {
-  id        Int @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 
@@ -20,6 +20,10 @@ model User {
 
   firstName String?
   lastName  String?
+  
+  rating        Float
+  nick_name     String  @db.Char(20)
+  perfil_photo  String 
 
   bookmarks Bookmark[]
   
@@ -39,4 +43,122 @@ model Bookmark {
   user  User  @relation(fields:[userId], references: [id])
 
   @@map("bookmarks")
+}
+
+// ----- CHAT ----- //
+
+model Chat {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  code      String    @db.Char(16)
+  user_from Int
+  user_to   Int
+  viewed    Boolean   @default(false)
+  status    Int?      @db.SmallInt @default(0)
+}
+
+// ----- CLIENT ----- //
+
+model Client {
+  id        Int       @id  @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  // orderId
+}
+
+// ----- Employee ----- //
+
+model Employee {
+  id        Int       @id  @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  hour_price  Int?
+  cpf         String? @unique @db.Char(11)
+  // scheduleId
+}
+
+// ----- Location ----- //
+
+model Location {
+  id        Int       @id  @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  cord_maps String    @db.Char(11)
+}
+
+// ----- Order ----- //
+
+model Order {
+  id        Int       @id  @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  title       String    @db.Char(70)
+  type        String    @db.Char(40)
+  description String    @db.Text
+  price       Float 
+
+  month_date_start  DateTime?
+  month_date_end    DateTime?
+  weekly            Boolean?
+  week_day_start    Int?   @db.SmallInt
+  week_day_end      Int?   @db.SmallInt
+  daily             Boolean?
+  weekend           Boolean?
+  holiday           Boolean?
+}
+
+// ----- Phone ----- //
+
+model Phone {
+  id        Int       @id  @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  number  String  @db.Char(13)
+}
+
+// ----- Rating ----- //
+
+model Rating {
+  id        Int       @id  @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  user_from Int
+  user_to   Int
+  status    Int     @db.SmallInt
+  value     Int     @db.SmallInt
+  text      String  @db.Text
+}
+
+//  ----- Report Error -----  //
+
+model Report_error {
+  id        Int       @id  @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  error_type  Int     @db.SmallInt
+  message     String  @db.Text
+  S0          String  @db.Char(45)
+  app_version String  @db.Char(10)  
+}
+
+//  ----- Schedule  ----- //
+
+model Schedule {
+  id        Int       @id  @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  week_day    Int     @db.SmallInt
+  hour_start  String  @db.Char(11)
+  hour_end    Int
+  status      Int     @db.SmallInt
 }
