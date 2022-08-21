@@ -10,39 +10,25 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// ----- USER ----- //
+
 model User {
   id        Int       @id @default(autoincrement())
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 
-  email String @unique
-  hash  String
+  email String @unique @db.VarChar(80)
+  hash  String?
+  password  String?
 
-  firstName String?
-  lastName  String?
+  name String?  @db.VarChar(80)
   
-  rating        Float
-  nick_name     String  @db.Char(20)
-  perfil_photo  String 
-
-  bookmarks Bookmark[]
+  rating        Float?
+  nick_name     String?  @db.VarChar(20)
+  perfil_photo  String?
   
-  @@map("users")
-}
-
-model Bookmark {
-  id        Int       @id  @default(autoincrement())
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-
-  title       String
-  description String?
-  link        String
-
-  userId  Int
-  user  User  @relation(fields:[userId], references: [id])
-
-  @@map("bookmarks")
+  employee Employee[]
+  @@map("user")
 }
 
 // ----- CHAT ----- //
@@ -78,6 +64,10 @@ model Employee {
 
   hour_price  Int?
   cpf         String? @unique @db.Char(11)
+  userId      Int  
+  user        User  @relation(fields:[userId], references: [id])
+
+  @@map("employees")
   // scheduleId
 }
 
