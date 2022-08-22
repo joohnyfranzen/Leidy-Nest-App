@@ -28,6 +28,7 @@ model User {
   perfil_photo  String?
   
   employee Employee[]
+  order Order[]
   @@map("user")
 }
 
@@ -91,7 +92,7 @@ model Order {
   title       String    @db.Char(70)
   type        String    @db.Char(40)
   description String    @db.Text
-  price       Float 
+  price       Int?
 
   month_date_start  DateTime?
   month_date_end    DateTime?
@@ -101,6 +102,9 @@ model Order {
   daily             Boolean?
   weekend           Boolean?
   holiday           Boolean?
+
+  userId      Int
+  user        User  @relation(fields:[userId], references: [id])
 }
 
 // ----- Phone ----- //
