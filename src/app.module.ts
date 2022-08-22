@@ -5,12 +5,12 @@ import { UserModule } from './user/user.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthEmployeeModule } from './auth/employee/auth.module';
 import { DashboardModule } from './dashboard/dashboard.module';
-import { RequestModule } from './request/request.module';
+import { OrderModule } from './order/order.module';
 
 @Module({
   imports: [ConfigModule.forRoot({
     isGlobal: true,
-  }), AuthModule, UserModule, PrismaModule, AuthEmployeeModule, DashboardModule, RequestModule],
+  }), AuthModule, UserModule, PrismaModule, AuthEmployeeModule, DashboardModule, OrderModule],
   controllers: [],
   providers: [],
 
