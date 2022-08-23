@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Query, UseGuards } from '@nestjs/common';
 import { GetUser } from 'src/auth/decorator';
 import { JwtGuard } from 'src/auth/guard';
 import { OrderDto } from './dto/order.dto';
@@ -19,9 +19,18 @@ export class OrderController {
     }
 
     @HttpCode(HttpStatus.ACCEPTED)
-    @Get('show')
-    showOrders() 
+    @Get('show/:id')
+    show(
+        @Param('id') id ) 
     {
-        return this.orderService.showOrder();
+        return this.orderService.show(id);
+    }
+
+    @HttpCode(HttpStatus.ACCEPTED)
+    @Get('search')
+    search(
+        @Query() query ) 
+    {
+        return this.orderService.search(query);
     }
 }
