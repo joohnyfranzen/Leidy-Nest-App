@@ -14,6 +14,7 @@ export class OrderDto {
     @IsNotEmpty()
     description: string
 
+    @IsNotEmpty()
     price: number
 
     month_date_start: Date
