@@ -4,6 +4,6 @@ export class ChatDto {
 
     @MaxLength(350)
     @IsString()
-    message: Text
+    message: string
 
 }
