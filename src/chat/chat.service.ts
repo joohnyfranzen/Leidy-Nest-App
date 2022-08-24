@@ -15,8 +15,9 @@ export class ChatService {
         async createMessage(userId: number, dto: ChatDto) {
 
             const newMessage = await this.prisma.chat.create({
-                data: Object.assign(dto, 
+                data: Object.assign(
                     {
+                        message: dto.message,
                         userFromId: userId, 
                         userToId: userId,
                     }
