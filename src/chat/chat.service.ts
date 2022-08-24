@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { take } from 'rxjs';
 import { PrismaService } from 'src/prisma/prisma.service';
 import select from 'src/utils/select';
 import { ChatDto } from './dto';
