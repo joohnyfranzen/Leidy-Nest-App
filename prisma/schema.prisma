@@ -29,6 +29,9 @@ model User {
   
   employee Employee[]
   order Order[]
+  chatFrom Chat[] @relation("userFrom")
+  chatTo Chat[] @relation("userTo")
+  
   @@map("user")
 }
 
@@ -39,11 +42,14 @@ model Chat {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 
-  code      String    @db.Char(16)
-  user_from Int
-  user_to   Int
+  message   String    @db.Text()
   viewed    Boolean   @default(false)
-  status    Int?      @db.SmallInt @default(0)
+  status    Int      @db.SmallInt @default(0)
+  
+  userFromId Int
+  userFrom User @relation("userFrom", fields:[userFromId], references: [id])
+  userToId   Int
+  userTo User @relation("userTo", fields:[userToId], references: [id])
 }
 
 // ----- CLIENT ----- //
