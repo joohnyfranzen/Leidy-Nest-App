@@ -12,7 +12,7 @@ import { ChatModule } from './chat/chat.module';
   imports: [ConfigModule.forRoot({
     isGlobal: true,
   }), AuthModule, UserModule, PrismaModule, AuthEmployeeModule, DashboardModule, OrderModule, ChatModule],
-  controllers: [ChatController],
+  controllers: [],
   providers: [],
 
 })
