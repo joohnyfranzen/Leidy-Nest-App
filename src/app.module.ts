@@ -6,12 +6,13 @@ import { PrismaModule } from './prisma/prisma.module';
 import { AuthEmployeeModule } from './auth/employee/auth.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { OrderModule } from './order/order.module';
+import { ChatModule } from './chat/chat.module';
 
 @Module({
   imports: [ConfigModule.forRoot({
     isGlobal: true,
-  }), AuthModule, UserModule, PrismaModule, AuthEmployeeModule, DashboardModule, OrderModule],
-  controllers: [],
+  }), AuthModule, UserModule, PrismaModule, AuthEmployeeModule, DashboardModule, OrderModule, ChatModule],
+  controllers: [ChatController],
   providers: [],
 
 })
