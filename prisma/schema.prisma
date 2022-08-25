@@ -108,6 +108,8 @@ model Order {
   daily             Boolean?
   weekend           Boolean?
   holiday           Boolean?
+  
+  userGet           Int?              
 
   userId      Int
   user        User  @relation(fields:[userId], references: [id])
@@ -132,7 +134,7 @@ model Rating {
 
   user_from Int
   user_to   Int
-  status    Int     @db.SmallInt
+  status    Int     @db.SmallInt @default(1)
   value     Int     @db.SmallInt
   text      String  @db.Text
 }
