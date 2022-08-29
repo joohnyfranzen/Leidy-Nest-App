@@ -1,4 +1,7 @@
 import { Injectable } from '@nestjs/common';
+import { count } from 'console';
+import { GetUser } from 'src/auth/decorator';
+import select from 'src/utils/select';
 import { PrismaService } from '../prisma/prisma.service';
 import { ratingDto } from './dto/rating.dto';
 
@@ -8,20 +11,22 @@ export class RatingService {
         private prisma: PrismaService,
     ) {}
 
-    async createRate(userId: number, dto: ratingDto) {
+    async createRate(userId: number, dto: ratingDto, userToId: number) {
+        dto.value = +dto.value
+        userToId = +userToId
 
         try {
             const userTo = await this.prisma.order.findFirst({
                 where: { 
-                    userId: userId,
-                    // userGet: userId,
+                    userId: userToIdz2,
+                    userGet: userId,
                 }
             })
             const newRate = await this.prisma.rating.create({
                 data: Object.assign(
                     {
                         user_to: userId,
-                        user_from: userId,
+                        user_from: userToId,
                         value: dto.value,
                         text: dto.text,
                     }
@@ -78,6 +83,27 @@ export class RatingService {
                 id: id
                 }
             })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async RateUpload(
+        @GetUser('id') userId: number,
+    ) {
+
+        try {
+            const getLastRating = await this.prisma.rating.findMany({
+                where: { 
+                    user_to: userId 
+                },
+                take: 50,
+                //select: select(['value'])
+            })
+            return getLastRating
+            // const allRate = count(getLastRating)
+            //const 
+            // const ratingGenerate = await this.prisma.rating.
         } catch (error) {
             console.log(error)
         }

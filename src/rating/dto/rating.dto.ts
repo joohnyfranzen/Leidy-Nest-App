@@ -1,13 +1,10 @@
-import { IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsNotEmpty, IsString } from "class-validator";
 
 export class ratingDto {
 
-    @IsNotEmpty()
-    @IsNumber()
     status: number
 
     @IsNotEmpty()
-    @IsNumber()
     value: number
 
     @IsNotEmpty()
